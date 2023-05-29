@@ -1,0 +1,33 @@
+from django.urls import path,include
+from . import views
+
+urlpatterns = [
+    path("",views.home),
+    path("ShowCategory/<id>",views.ShowCategory),
+    path("ViewDetails/<id>",views.ViewDetails),
+    path("Login",views.Login),
+    path("SignUp",views.SignUp),
+    path("SignOut",views.SignOut),
+    path("AddToCard",views.AddToCard),
+    path("ShowCard",views.ShowCard),
+    path("MakePayment",views.MakePayment),
+    path("forHerCASULE",views.forHerCASULE),
+    path("forHerINVOGUE",views.forHerINVOGUE),
+    path("forHerFITNESS",views.forHerFITNESS),
+    path("forHerCLASSY",views.forHerCLASSY),
+    path("forHerADVENTUROUS",views.forHerADVENTUROUS),
+    path("forHimCASULE",views.forHimCASULE),
+    path("forHimINVOGUE",views.forHimINVOGUE),
+    path("forHimFITNESS",views.forHimFITNESS),
+    path("forHimCLASSY",views.forHimCLASSY),
+    path("forHimADVENTUROUS",views.forHimADVENTUROUS),
+    path("review",views.Review),
+    path("about",views.about),
+    path("women",views.women),
+    path("men",views.men),
+    path("makepayment",views.MakePayment),
+    path("search/", views.search),
+    path("checkout/", views.checkout),
+    path("order/",views.OrderView),
+    path("contactUs",views.contact),
+]

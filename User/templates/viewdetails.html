@@ -1,0 +1,200 @@
+{% extends 'master.html' %}
+
+{% block content1 %}
+
+
+
+<style>
+    h2{
+        background-color:; 
+        font-size: 30px; 
+        padding: 10px; 
+        height: 50px;
+    }
+    
+</style>
+<form method="post" action="/AddToCard">
+    {% csrf_token %}
+   
+    <div class="col border-2" style="padding:50px; background-color:#f0ffff;">
+        <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative" style="padding:10px;">
+            <div class="col-auto d-none d-lg-block">
+                <img src="{{watch.image.url}}" class="img-responsive" style="height:600px;width:500px; padding-top: 20px;" alt="Image" />
+                  
+            </div>
+            <div class="col p-4 d-flex flex-column position-static" style="padding-top: 10px;">
+                <h2  href="#"   >{{watch.brand}}</h2>
+                <h2 class="mb-6 text-muted">{{watch.brand}} | {{watch.watch_model}} | {{watch.band}}</h2>
+                <input type="hidden" name="wid" value="{{watch.id}}"/>
+                <h2 >Rs. {{watch.price}}</h2>
+                    <h3>Description</h3>
+                        <p style="font-size: 20px; padding-left: 40px " >{{watch.description}}</p>
+                       
+                <div class="mb-6 text-muted" style="font-size: 30px;">Quantity
+                    <select class="form-select" name="qty" style="width:150px; font-size: 20px; padding-left: 60px" aria-label="Default select example">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>    
+                </div>
+            </div>
+                <div class="span2">
+                    <button class="btn btn-block" style="  background-color:#00cccc; font-size: 20px; color: azure " >Add To Card</button>
+                </div>
+        </div>
+    </div>
+</form>
+<br>
+
+<div class="container mt-2">
+          <h2>All Reviews ({{reviews.count}})</h2>
+          
+          {% for review in reviews %}
+          <div class="card">
+                <div class="card-header">
+                      <span style="font-size: 22px;">{{review.user.name}} </span> 
+                      <span style="font-size: 14px;">{{review.date}}</span>
+                </div>
+                <div class="card-body">
+                      <h6 class="card-text" style="font-size: 20px;" >{{review.content}}</h6>
+                </div>
+          </div>
+          <br>
+          {% endfor %}
+   
+</div>
+<div class="container">
+    <h2>Add Reviews Here</h2>
+    <form method="POST" action="/ViewDetails/{{watch.id}}"> 
+      {% csrf_token %}
+          <div class="form-floating">
+                <textarea class="form-control" id="floatingTextarea2"
+                      style="height: 100px; font-size:20px;" id="content" name="content"></textarea>
+                <label for="floatingTextarea2">Leave a feedback about the {{watch.watch_model}} here.</label>
+                <br>
+                <button type="submit" class="btn btn-info" style="background-color:#00cccc; font-size: 15px; ">Add Review</button>
+          </div>
+    </form>
+</div>
+
+<!--
+        <h2 class="subtitle">Reviews</h2>
+        <div class="reviews-wrapper">
+            {%for reviews in Review%}
+                <div class="notification">
+                    <p>
+                        <strong>Name :</strong>{{reviews.user.username}}
+                        <strong>Date :</strong>{{reviews.date_added | date:"Y-m-d" }}
+                        <strong>stars :</strong>{{reviews.stars}}
+                    </p>
+                    {{reviews.content}}
+                </div>
+            {%empty%}
+                <div class="notification">
+                    No Reviews yet ...
+                </div>
+            {% endfor %}
+        </div>
+        <div class="nofication">
+            {%if "uname" in request.session%}
+                <form method="post" action="">
+                {% csrf_token %}
+                    <div class="field">
+                        <label>Stars</label>
+                        <div class="select">
+                            <select name="star">
+                                <option value='1'>1</option>
+                                <option value='2'>2</option>
+                                <option value='3'>3</option>
+                                <option value='4' selected>4</option>
+                                <option value='5'>5</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label>Content</label>
+                        <div class="control">
+                            <textarea class="textarea" name="content"></textarea>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="control">
+                            <button class="button is success">Submit</button>
+                        </div>
+                    </div>
+                </form>
+            {% else %}
+                <p> Plase Sign in add review </p>
+            {% endif %}
+        </div>
+    -->
+
+
+
+<!--
+<center>
+<form method="post" action="/AddToCard">
+    {% csrf_token %}
+    <div class="container ">   
+<table class="table text-bg-warning  mb-4 " style="width: 700px; height: 550px;">
+    
+    <tr>
+        <td rowspan=8><img src="{{watch.image.url}}" class="img-responsive" style="height:470px;width:320px;" alt="Image" /></td>
+    </tr>
+    <tr>
+        
+        <td>
+            <h3>{{watch.brand}}</h3>
+        </td>
+    </tr>
+    <tr>
+        
+        <td>{{watch.watch_model}}
+            <input type="hidden" name="wid" value="{{watch.id}}"/>
+        </td>
+    </tr>
+
+    <tr>
+    
+        <td>{{watch.gender}}</td>
+    </tr>
+    <tr>
+    
+        <td>{{watch.band}} Band</td>
+    </tr>
+    
+    
+    <tr>
+    
+        <td>Rs. {{watch.price}}</td>
+    </tr>
+    <tr>
+        <td>Quantity
+            <select class="from-control" name="qty">
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <td><button class="button btn-success" type="submit">Add To Card</button></td>
+    </tr>      
+</table>
+
+</div>
+
+<div class="card text-bg-warning  mb-4">
+<center><h1>Description</h1></center>
+{{watch.description}}
+</div>
+</form>
+</center>
+-->
+
+
+{%endblock content1%}

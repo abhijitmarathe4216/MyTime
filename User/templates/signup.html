@@ -1,0 +1,131 @@
+{% extends 'master.html' %}
+
+{% block content2 %}
+
+<h1> Sign-Up Details!!! </h1>
+<style>
+    .function checkPass() {
+        
+        var get_elem = document.getElementById,
+        pass1 = document.getElementById('password'),
+        pass2 = document.getElementById('password2'),
+        message = document.getElementById('confirmMessage'),
+        colors = {
+        goodColor: "#fff",
+        goodColored: "#087a08",
+        badColor: "#fff",
+        badColored:"#ed0b0b"
+        },
+        strings = {
+        "confirmMessage": ["good", "bad"]
+        };
+        
+        if(password.value === password2.value && (password.value + password2.value) !== "") {
+        password2.style.backgroundColor = colors["goodColor"];
+        message.style.color = colors["goodColored"];
+        message.innerHTML = strings["confirmMessage"][0];
+        }
+        else if(!(password2.value === "")) {
+        password2.style.backgroundColor = colors["badColor"];
+        message.style.color = colors["badColored"];
+        message.innerHTML = strings["confirmMessage"][1];
+        }
+        else {
+        message.innerHTML = "";	
+        }
+        
+    }  
+</style>
+
+<div class="bg-white border rounded-5">
+
+   <form method="post" >
+        {% csrf_token %}
+        {{msg}}
+    <section class="p-5 w-100" style="background-color: #eee; border-radius: .5rem .5rem 0 0;">
+      <div class="row">
+        <div class="col-12">
+          <div class="card text-black" style="border-radius: 25px;">
+            <div class="card-body p-md-5">
+              <div class="row justify-content-center">
+                <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
+
+                  <p class="text-center h1 fw-bold mb-5 mt-4">Sign up</p>
+
+                  
+
+                    <div class="d-flex flex-row align-items-center mb-4">
+                      <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+                      <div class="form-outline flex-fill mb-0">
+                        <input type="text"  name="name" class="form-control">
+                        <label class="form-label"  for="form3Example1c" style="margin-left: 0px;">Your Name</label>
+                      <div class="form-notch"><div class="form-notch-leading" style="width: 9px;"></div><div class="form-notch-middle" style="width: 71.2px;"></div><div class="form-notch-trailing"></div></div></div>
+                    </div>
+
+                    <div class="d-flex flex-row align-items-center mb-4">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-phone-fill" viewBox="0 0 16 16">
+                        <path d="M3 2a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V2zm6 11a1 1 0 1 0-2 0 1 1 0 0 0 2 0z"/>
+                      </svg>
+                      <div class="form-outline flex-fill mb-0">
+                        <input type="number"  name="PhoneNo" class="form-control">
+                        <label class="form-label"  for="form3Example1c" style="margin-left: 0px;">Phone Number</label>
+                      <div class="form-notch"><div class="form-notch-leading" style="width: 9px;"></div><div class="form-notch-middle" style="width: 71.2px;"></div><div class="form-notch-trailing"></div></div></div>
+                    </div>
+
+                    <div class="d-flex flex-row align-items-center mb-4">
+                      <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
+                      <div class="form-outline flex-fill mb-0">
+                        <input type="email" name="email" id="form3Example3c" class="form-control">
+                        <label class="form-label" for="form3Example3c" style="margin-left: 0px;">Email</label>
+                      <div class="form-notch"><div class="form-notch-leading" style="width: 9px;"></div><div class="form-notch-middle" style="width: 68.8px;"></div><div class="form-notch-trailing"></div></div></div>
+                    </div>
+
+                    <div class="d-flex flex-row align-items-center mb-4">
+                      <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
+                      <div class="form-outline flex-fill mb-0">
+                        <input type="password" name="pwd" id="password" class="form-control">
+                        <label class="form-label" for="form3Example4c" style="margin-left: 0px;">Password</label>
+                      <div class="form-notch"><div class="form-notch-leading" style="width: 9px;"></div><div class="form-notch-middle" style="width: 64.8px;"></div><div class="form-notch-trailing"></div></div></div>
+                    </div>
+
+                    <div class="d-flex flex-row align-items-center mb-4">
+                      <i class="fas fa-key fa-lg me-3 fa-fw"></i>
+                      <div class="form-outline flex-fill mb-0">
+                        <input type="password" name="pwd2" id="password2" class="form-control" onKeyUp="checkPass(); return false;" />
+                        <label class="form-label"  for="form3Example4cd" style="margin-left: 0px;" >Repeat your password</label>
+                      <div class="form-notch"><div class="form-notch-leading" style="width: 9px;"></div><div class="form-notch-middle" style="width: 134.4px;"></div><div class="form-notch-trailing"></div></div></div>
+                    </div>
+                    
+                    {% for message in messages %}
+                    <div class="container-fluid p-0">
+                      <div class="alert {{ message.tags }} alert-dismissible" role="alert" >
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                          <span aria-hidden="True">&times;</span>
+                        </button>
+                        {{ message }}
+                      </div>
+                    </div>
+                    {% endfor %}
+
+                    <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
+                      <button type="submit" class="btn btn-primary btn-lg">Register</button>
+                    </div>
+
+                  
+
+                </div>
+                <div class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
+
+                  <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp" class="img-fluid" alt="Sample image">
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>    
+   </form>  
+</div>
+
+{% endblock content2 %}

@@ -1,0 +1,37 @@
+{% extends 'master.html' %}
+
+{%block content2 %}
+<div id="carouselExampleIndicators" class="carousel slide">
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        {% load static %}<img src="{% static "image/1920x600_Men_PLP_5.png"%}" alt="" width="1540"
+        height="500">
+      </div>
+    </div>
+</div>
+<div
+      class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-2"
+      style="padding: 0.55rem 1.5rem 0.45rem; margin-left: 10px !important"
+    >
+      {%for watch in watches%}
+        
+          <div class="card border-0" style="padding: 1.1rem 3rem 0.9rem">
+            <a href="/ViewDetails/{{watch.id}}">
+              <img
+                class="card-img-top center-block"
+                src="{{watch.image.url}}"
+                style="height: 350px; width: 300px"
+                alt="Card image cap"
+            /></a>
+            <div class="card-body">
+              <h3 class="card-title text-center">{{watch.brand}}</h3>
+              <a href="/ViewDetails/{{watch.id}}"
+                ><p class="card-text text-center">{{watch.watch_model}}</p></a
+              >
+              <p class="card-text text-muted text-center">Rs. {{watch.price}}</p>
+            </div>
+          </div>
+          
+          {%endfor%}
+    </div>
+{%endblock content2 %}

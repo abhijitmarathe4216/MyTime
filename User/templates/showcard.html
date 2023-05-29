@@ -1,0 +1,175 @@
+{% extends 'master.html' %}
+
+{%block content2%}
+
+<script type="text/javascript">
+    function increment(data)
+    {
+        var result = document.getElementById(data);
+        var num = parseInt(result.value);
+        if(num<5)
+        {
+            num+=1;
+        }
+        result.value = num
+
+    }
+    function decrement(data)
+    {
+        var result = document.getElementById(data);
+        var num = parseInt(result.value);
+        if(num>1)
+        {
+            num-=1;
+        }
+        result.value = num
+        
+    }
+    
+</script>
+
+<h1>Card Details!!</h1>
+
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <div class="alert alert-info alert-dismissible">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        {{message}}
+      </div>
+    {% endfor %}
+</ul>
+{% endif %}
+
+<!--
+   
+<table class="table">
+    <tr>
+        <th>Watch Name</th>
+        <th>Price</th>
+        <th>Image</th>
+        <th>Quntity</th>
+        <th>Sub Total</th>
+
+    </tr>
+    {%for item in items%}
+    <tr>
+        <form method="post">
+        {% csrf_token %}
+            <input type="hidden" name="wid" value="{{item.id}}"/>
+        <td>{{item.Watch.watch_Model}}</td>
+        <td>{{item.Watch.price}}</td>
+        <td><img src="{{item.Watch.image.url}}" style="height:50px ; width:50px;" ></td>
+
+        <td><button type="button" class="button btn-warning" onclick="decrement('qty{{item.Watch.id}}')">-</button>
+            <input type="text" style="width:20px;" id="qty{{item.Watch.id}}" name="qty" value="{{item.qty}}" readonly/>
+            <button type="button" class="button btn-warning" onclick="increment('qty{{item.Watch.id}}')">+</button></td>
+
+        <td>{% widthratio item.Watch.price 1 item.qty %}</td>
+        <td><button type="submit" class="button btn-success" name="action" value="update">Update</button>
+        <button type="submit" class="button btn-success" name="action" value="remove">Remove</button></td>
+        </form>
+    </tr>
+        {%endfor%}
+</table>
+
+<h1>Total : {{request.session.total}}</h1>
+
+</hr> 
+<a href="/MakePayment">Proceed To Make Payment </a> -->
+<form method="post">
+{% csrf_token %}
+<section class="h-100 h-custom" style="background-color: #eee; ">
+    <div class="container py-5 h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col">
+          <div class="card">
+            <div class="card-body p-4">
+  
+              <div class="row">
+  
+                <div class="col">
+                  <h5 class="mb-3"><a href="#!" class="text-body"><i
+                        class="fas fa-long-arrow-alt-left me-2"></i>Continue shopping</a></h5>
+                  <hr>
+  
+                  <div class="d-flex justify-content-between align-items-center mb-4">
+                    <div>
+                      <p class="mb-1">Shopping cart</p>
+                    </div>
+                  </div>
+                  {%for item in items%}
+                  <div class="card mb-5 " size="width:100;">
+                    <div class="card-body">
+                        
+                      <div class="d-flex justify-content-between">
+                        <div class="d-flex flex-row ">
+                          <div>
+                            <img
+                              src="{{item.Watch.image.url}}"
+                              class="img-fluid rounded-3" alt="Shopping item" style="width: 65px;">
+                          </div>
+                          <div class="ms-3">
+                            <input type="hidden" name="wid" value="{{item.id}}"/>
+                            <h5>{{item.Watch.brand}}</h5>
+                            <p class="small mb-0">{{item.Watch.watch_model}} | {{item.Watch.band}}</p>
+                          </div>
+                                                     
+                          </div>
+                        <div class="d-flex  align-items-center " >
+                          <div style="width: 300px;">
+                            <h5 class="mb-0"> {{item.address}}</h5>
+                            <input type="hidden" name="address" value="{{item.address}}"/>
+                          </div>
+                            <div style="width: 130px;">
+                            <h2 class="fw-normal mb-0 " >
+                              <button type="button" class="button btn-primary" style="background-color: #00cccc;" onclick="decrement('qty{{item.Watch.id}}')">-</button>
+                              <input type="text" style="width:40px;" id="qty{{item.Watch.id}}" name="qty" value="{{item.qty}}" readonly/>
+                              <button type="button" class="button btn-primary" style="background-color: #00cccc;" onclick="increment('qty{{item.Watch.id}}')">+</button>
+                            </h2>
+                          </div>
+                          <div style="width: 100px;">
+                            <h5 class="mb-0"> Rs. {% widthratio item.Watch.price 1 item.qty %}</h5>
+                          </div>
+                          <button type="submit" class="btn btn-success" name="action" value="update" style=" margin-right: 10px;" >
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-repeat" viewBox="0 0 16 16">
+                              <path d="M11.534 7h3.932a.25.25 0 0 1 .192.41l-1.966 2.36a.25.25 0 0 1-.384 0l-1.966-2.36a.25.25 0 0 1 .192-.41zm-11 2h3.932a.25.25 0 0 0 .192-.41L2.692 6.23a.25.25 0 0 0-.384 0L.342 8.59A.25.25 0 0 0 .534 9z"></path>
+                              <path fill-rule="evenodd" d="M8 3c-1.552 0-2.94.707-3.857 1.818a.5.5 0 1 1-.771-.636A6.002 6.002 0 0 1 13.917 7H12.9A5.002 5.002 0 0 0 8 3zM3.1 9a5.002 5.002 0 0 0 8.757 2.182.5.5 0 1 1 .771.636A6.002 6.002 0 0 1 2.083 9H3.1z"></path>
+                            </svg>
+                            Update
+                          </button>
+                           
+                          <button type="submit" class="btn btn-danger btn-lg rounded-2" type="submit" name="action"  value="remove">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                            <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"></path>
+                            <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"></path>
+                          </svg>
+                          Delete
+                        </button>
+                        
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  {%endfor%}
+                </div>
+                <a href="/checkout/">
+                <button type="button" class="btn btn-info btn-block btn-lg " >
+                  <div class="d-flex justify-content-between">
+                    <span> <h2> Total : {{request.session.total}}</h2> </span>
+                    <span>Place Order<i class="fas fa-long-arrow-alt-right ms-2"></i></span>
+                  </div>
+                </button>
+                </a>  
+              </div>  
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</form>
+ 
+
+
+{%endblock content2%}

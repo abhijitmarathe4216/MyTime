@@ -1,0 +1,92 @@
+{% extends 'master.html' %}
+
+{%block content2%}
+
+<style>
+  table, th, td {
+   
+    border-collapse: collapse;
+    align: center;
+    text-align: center;
+  }
+    
+  table.center {
+    margin-left: auto; 
+    margin-right: auto;
+  }
+</style>
+
+<section class="h-100 h-custom" style="background-color: #eee; ">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col">
+        <div class="card">
+          <table class="table" >
+            <div class="d-flex  align-items-center ">
+            <tr>
+                <th>Watch</th>
+                <th>Price</th>
+                <th>Quntity</th>
+                <th>Address</th>
+                <th>Order Date</th>
+                <th>Delivery Date</th>
+        
+            </tr>
+            {%for order in orders%}
+            <tr>
+                <form method="post">
+                {% csrf_token %}
+                    <input type="hidden" name="wid" value="{{order.id}}"/>
+                <td><div class="d-flex flex-row ">
+                  <div>
+                    <img
+                      src="{{order.watch.image.url}}"
+                      class="img-fluid rounded-3" alt="Shopping item" style="width:100px;">
+                  </div>
+                  <div class="ms-2">
+                    <input type="hidden" name="oid" value="{{order.id}}"/>
+                    <input type="hidden" name="amount" value="{{order.amount}}"/>
+                    <h5>{{order.watch.brand}}</h5>
+
+                    <p class="small mb-0">{{order.watch.watch_model}} | {{order.watch.band}}</p>
+                  </div>
+                </div></td>
+                <td>{{order.amount}}</td>
+                <td>{{order.qty}}</td>
+                
+        
+                <td><div class="d-flex justify-content-between"><p class="small mb-1"> {{order.checkoutdetail.address}} {{order.checkoutdetail.city}}
+                   {{order.checkoutdetail.state}} {{order.checkoutdetail.zipcode}}
+                </p></div></td>
+                <td>{{order.checkoutdetail.orderdate}}</td>
+                <td>{{order.delivery_date}}</td>
+                <td><button type="submit" class="btn btn-danger btn-lg rounded-2" type="submit" name="action"  value="remove">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                    <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"></path>
+                    <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"></path>
+                  </svg>
+                  Cancel
+                </button></td>
+                
+              </form>
+            </tr>
+                {%endfor%}
+                
+        </table>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+
+
+
+  {% endblock content2 %}
+
+
+

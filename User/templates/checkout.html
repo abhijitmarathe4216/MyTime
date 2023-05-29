@@ -1,0 +1,85 @@
+
+{% extends 'master.html' %}
+{% load static %}
+
+{% block content2 %}
+<div class="container">
+  <div class="col-lg-12">
+      <div class="box-element">
+          <a class="btn btn-outline-dark" href="/ShowCard">&#x2190; Back to Cart</a>
+          <hr>
+          <h3>Order Summary</h3>
+          <hr>
+          {% for item in items %}
+          <div class="cart-row">
+              <div style="flex:2"><img class="img-fluid rounded-3" alt="Shopping item" style="width: 65px;" src="{{item.Watch.image.url}}"></div>
+              <div style="flex:2">
+                  <p>{{item.Watch.watch_model}}</p>
+              </div>
+              <div style="flex:1">
+                  <p>₹{% widthratio item.Watch.price 1 item.qty %}</p>
+              </div>
+              <div style="flex:1">
+                  <p>{{item.qty}}</p>
+              </div>
+          </div>
+          {% endfor %}
+         
+          <h5>Total: ₹{{request.session.total}}</h5>
+      </div>
+  </div>
+  <div class="col-lg-12">
+      <div class="box-element" id="form-wrapper">
+          <form method="post"  > {% csrf_token %}
+              <div id="shipping-info">
+                  <hr>
+                  <h4>Checkout Details:</h4>
+                  <hr>
+                  <div class="">
+                    
+                      <input class="form-control" type="text" name="address" placeholder="Address.." required>
+                  </div>
+                  <div class="form-field mt-3">
+                      <input class="form-control" type="text" name="city" placeholder="City.." required>
+                  </div>
+                  <div class="form-field">
+                      <input class="form-control" type="text" name="state" placeholder="State.." required>
+                  </div>
+                  <div class="form-field">
+                      <input class="form-control" type="text" name="zipcode" placeholder="Zip code.." required>
+                  </div>
+                  <div class="form-field">
+                      <input class="form-control" type="text" name="phone_number" placeholder="Phone Number.." required>
+                  </div>
+                  <div class="mt-3">
+                      <select name="payment_method" id="payment_method" class="form-control mt-3">
+                          <option value="Credit Card">Credit Card</option>
+                    <!--      
+                          <option value="Cash On Delivery">Cash On Delivery</option>
+                          <option value="Paytm">Paytm</option>
+                          <option value="Google Pay">Google Pay</option>
+                      -->
+                      </select>
+                  </div>
+              </div>
+              <hr>
+            
+            
+            <input type="submit" value="Place Order" id="form-button" class="btn btn-success">
+        
+        </form>
+
+      </div>
+      <br>
+  </div>
+</div>
+
+<script>
+  {% if alert %}
+  alert("Thankyou for placing an order. Your Order ID is {{id}}. You can use it to track your order.")
+  cart = {}
+  document.cookie = 'cart=' + JSON.stringify(cart) + ";domain=;path=/"
+  window.location.href = '/'
+  {% endif %}
+</script>
+{% endblock content2 %}
